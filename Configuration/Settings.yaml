@@ -1,0 +1,8 @@
+Neos:
+  Media:
+    assetSources:
+      vimeo:
+        assetSource: 'DL\AssetSource\Pexels\AssetSource\PexelsAssetSource'
+        assetSourceOptions:
+          accessKey: access-key
+          copyRightNoticeTemplate: '${"Pexels.com / " + user.name}'
