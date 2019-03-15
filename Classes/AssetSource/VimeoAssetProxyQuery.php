@@ -6,7 +6,7 @@
  * Time: 15:24
  */
 
-namespace DIU\AssetSource\Vimeo\AssetSource;
+namespace DIU\Assetsource\Vimeo\AssetSource;
 
 
 use Neos\Media\Domain\Model\AssetSource\AssetProxyQueryInterface;
@@ -15,39 +15,76 @@ use Neos\Media\Domain\Model\AssetSource\AssetSourceConnectionExceptionInterface;
 
 class VimeoAssetProxyQuery  implements AssetProxyQueryInterface
 {
+    /**
+     * @var VimeoAssetSource
+     */
+    private $assetSource;
+
+    /**
+     * @var int
+     */
+    private $limit = 20;
+
+    /**
+     * @var int
+     */
+    private $offset = 0;
+
+    /**
+     * @var string
+     */
+    private $searchTerm = '';
+
+    /**
+     * UnsplashAssetProxyQuery constructor.
+     * @param VimeoAssetSource $assetSource
+     */
+    public function __construct(VimeoAssetSource $assetSource)
+    {
+        $this->assetSource = $assetSource;
+    }
+
     public function setOffset(int $offset): void
     {
-        // TODO: Implement setOffset() method.
+        $this->offset = $offset;
     }
 
     public function getOffset(): int
     {
-        // TODO: Implement getOffset() method.
+        return $this->offset;
     }
 
     public function setLimit(int $limit): void
     {
-        // TODO: Implement setLimit() method.
+        $this->limit = $limit;
     }
 
     public function getLimit(): int
     {
-        // TODO: Implement getLimit() method.
+        return $this->limit;
     }
 
     public function setSearchTerm(string $searchTerm)
     {
-        // TODO: Implement setSearchTerm() method.
+        $this->searchTerm = $searchTerm;
     }
 
     public function getSearchTerm()
     {
-        // TODO: Implement getSearchTerm() method.
+        return $this->searchTerm;
     }
 
     public function execute(): AssetProxyQueryResultInterface
     {
-        // TODO: Implement execute() method.
+       $page = (int) ceil(($this->offset + 1) / $this->limit);
+       $video = $this->assetSource->getVimeoClient()->search(
+           $page,
+           $this->limit,
+           $this->searchTerm
+           );
+
+
+        return new VimeoAssetProxyQueryResult($this, $video, $this->assetSource);
     }
 
     public function count(): int

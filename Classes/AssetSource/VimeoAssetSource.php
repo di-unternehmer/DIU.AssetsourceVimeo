@@ -6,14 +6,44 @@
  * Time: 15:28
  */
 
-namespace DIU\AssetSource\Vimeo\AssetSource;
+namespace DIU\Assetsource\Vimeo\AssetSource;
 
-
+use DIU\Assetsource\Vimeo\Api\VimeoClient;
 use Neos\Media\Domain\Model\AssetSource\AssetProxyRepositoryInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetSourceInterface;
+use Neos\Media\Domain\Model\AssetSource\Neos\NeosAssetProxyRepository;
 
 class VimeoAssetSource implements AssetSourceInterface
 {
+    /**
+     * @var string
+     */
+    private $assetSourceIdentifier;
+
+    /**
+     * @var NeosAssetProxyRepository
+     */
+    private $assetProxyRepository;
+
+    /**
+     * @var VimeoClient
+     */
+    protected $vimeoClient;
+
+    /**
+     * VimeoAssetSource constructor.
+     * @param string $assetSourceIdentifier
+     * @param array $assetSourceOptions
+     */
+    public function __construct(string $assetSourceIdentifier, array $assetSourceOptions)
+    {
+        $this->assetSourceIdentifier = $assetSourceIdentifier;
+        $this->vimeoClient = new VimeoClient(
+            $assetSourceOptions['clientId'],
+            $assetSourceOptions['clientSecret'],
+            $assetSourceOptions['accessToken']
+        );
+ }
 
     /**
      * This factory method is used instead of a constructor in order to not dictate a __construct() signature in this
@@ -25,7 +55,7 @@ class VimeoAssetSource implements AssetSourceInterface
      */
     public static function createFromConfiguration(string $assetSourceIdentifier, array $assetSourceOptions): AssetSourceInterface
     {
-        // TODO: Implement createFromConfiguration() method.
+        return new static($assetSourceIdentifier, $assetSourceOptions);
     }
 
     /**
@@ -36,7 +66,7 @@ class VimeoAssetSource implements AssetSourceInterface
      */
     public function getIdentifier(): string
     {
-        // TODO: Implement getIdentifier() method.
+        return $this->assetSourceIdentifier;
     }
 
     /**
@@ -44,7 +74,7 @@ class VimeoAssetSource implements AssetSourceInterface
      */
     public function getLabel(): string
     {
-        // TODO: Implement getLabel() method.
+        return 'Vimeo';
     }
 
     /**
@@ -52,7 +82,11 @@ class VimeoAssetSource implements AssetSourceInterface
      */
     public function getAssetProxyRepository(): AssetProxyRepositoryInterface
     {
-        // TODO: Implement getAssetProxyRepository() method.
+        if ($this->assetProxyRepository === null) {
+            $this->assetProxyRepository = new VimeoAssetProxyRepository($this);
+        }
+
+        return $this->assetProxyRepository;
     }
 
     /**
@@ -60,6 +94,11 @@ class VimeoAssetSource implements AssetSourceInterface
      */
     public function isReadOnly(): bool
     {
-        // TODO: Implement isReadOnly() method.
+        return true;
+    }
+
+    public function getVimeoClient():VimeoClient
+    {
+        return $this->vimeoClient;
     }
 }

@@ -2,7 +2,30 @@ Neos:
   Media:
     assetSources:
       vimeo:
-        assetSource: 'DL\AssetSource\Pexels\AssetSource\PexelsAssetSource'
+        playerDomain: 'https://player.vimeo.com'
+        assetSource: 'DIU\Assetsource\Vimeo\AssetSource\VimeoAssetSource'
         assetSourceOptions:
-          accessKey: access-key
-          copyRightNoticeTemplate: '${"Pexels.com / " + user.name}'
+
+          copyRightNoticeTemplate: '${"Vimeo.com / " + user.name}'
+
+          clientId : Vimeo-Client-Id
+          clientSecret : Vimeo-Client-Secret
+          accessToken : Vimeo-Access-Token
+    asset:
+      modelMappingStrategy:
+        patterns:
+          '[vimeo/video]':
+            className: DIU\Assetsource\Vimeo\Domain\Model\Vimeo
+
+
+  Neos:
+    userInterface:
+      inspector:
+        dataTypes:
+          DIU\Assetsource\Vimeo\Domain\Model\Vimeo:
+            typeConverter: Neos\Neos\TypeConverter\EntityToIdentityConverter
+            editor: Neos.Neos/Inspector/Editors/AssetEditor
+            editorOptions:
+              features:
+                upload: false
+                mediaBrowser: true

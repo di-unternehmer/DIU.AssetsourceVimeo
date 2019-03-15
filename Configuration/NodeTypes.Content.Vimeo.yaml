@@ -1,0 +1,9 @@
+'DIU.Assetsource.Vimeo:Content.Vimeo':
+  superTypes:
+    'Neos.Neos:Content': true
+    'DIU.Assetsource.Vimeo:Mixins.VimeoMixin': true
+  ui:
+    label: i18n
+    position: 40
+    icon: 'icon-images'
+

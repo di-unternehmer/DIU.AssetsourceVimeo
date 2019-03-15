@@ -6,7 +6,7 @@
  * Time: 15:43
  */
 
-namespace DIU\AssetSource\Vimeo\Api;
+namespace DIU\Assetsource\Vimeo\Api;
 
 
 class VimeoQueryResult
@@ -27,20 +27,28 @@ class VimeoQueryResult
     protected $totalResults = 30;
 
     /**
+     * @var int
+     */
+    private $page;
+
+
+    /**
      * @param array $videos
      * @param int $totalResults
+     * @param int $page
      */
-    public function __construct(array $videos, int $totalResults)
+    public function __construct(array $videos, int $totalResults, int $page)
     {
         $this->videos = new \ArrayObject($videos);
         $this->videoIterator = $this->videos->getIterator();
         $this->totalResults = $totalResults;
+        $this->page = $page;
     }
 
     /**
      * @return \ArrayObject
      */
-    public function getvideos(): \ArrayObject
+    public function getVideos(): \ArrayObject
     {
         return $this->videos;
     }
@@ -48,7 +56,7 @@ class VimeoQueryResult
     /**
      * @return \ArrayIterator
      */
-    public function getvideoIterator(): \ArrayIterator
+    public function getVideoIterator(): \ArrayIterator
     {
         return $this->videoIterator;
     }
@@ -60,4 +68,13 @@ class VimeoQueryResult
     {
         return $this->totalResults;
     }
+
+    /**
+     * @return int
+     */
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
 }

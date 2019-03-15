@@ -1,4 +1,4 @@
-DIU\AssetSource\Vimeo\Api\VimeoClient:
+DIU\Assetsource\Vimeo\Api\VimeoClient:
   properties:
     videoPropertyCache:
       object:
@@ -7,3 +7,6 @@ DIU\AssetSource\Vimeo\Api\VimeoClient:
         arguments:
           1:
             value: DIUAssetsourceVimeo_VideoPropertyCache
+
+Neos\Media\Domain\Strategy\AssetModelMappingStrategyInterface:
+  className: DIU\Assetsource\Vimeo\Domain\Strategy\ConfigurationAssetModelMappingStrategy

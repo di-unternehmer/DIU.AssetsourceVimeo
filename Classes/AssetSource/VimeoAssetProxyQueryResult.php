@@ -6,16 +6,43 @@
  * Time: 15:26
  */
 
-namespace DIU\AssetSource\Vimeo\AssetSource;
+namespace DIU\Assetsource\Vimeo\AssetSource;
 
 
+use DIU\Assetsource\Vimeo\Api\VimeoQueryResult;
 use Neos\Media\Domain\Model\AssetSource\AssetProxy\AssetProxyInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetProxyQueryInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetProxyQueryResultInterface;
 
 class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
 {
+    /**
+     * @var VimeoAssetSource
+     */
+    private $assetSource;
 
+    /**
+     * @var VimeoQueryResult
+     */
+    private $vimeoQueryResult = [];
+
+
+    /**
+     * @var VimeoAssetProxyQuery
+     */
+    private $vimeoAssetProxyQuery;
+
+    /**
+     * @param VimeoAssetProxyQuery $query
+     * @param VimeoQueryResult $vimeoQueryResult
+     * @param VimeoAssetSource $assetSource
+     */
+    public function __construct(VimeoAssetProxyQuery $query, VimeoQueryResult $vimeoQueryResult, VimeoAssetSource $assetSource)
+    {
+        $this->vimeoAssetProxyQuery = $query;
+        $this->assetSource = $assetSource;
+        $this->vimeoQueryResult = $vimeoQueryResult;
+    }
     /**
      * Returns a clone of the query object
      *
@@ -23,7 +50,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function getQuery(): AssetProxyQueryInterface
     {
-        // TODO: Implement getQuery() method.
+        return clone $this->vimeoAssetProxyQuery;
     }
 
     /**
@@ -33,7 +60,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function getFirst(): ?AssetProxyInterface
     {
-        // TODO: Implement getFirst() method.
+        return $this->offsetGet(0);
     }
 
     /**
@@ -43,7 +70,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function toArray(): array
     {
-        // TODO: Implement toArray() method.
+        return $this->vimeoQueryResult->getVideoIterator()->getArrayCopy();
     }
 
     /**
@@ -54,7 +81,13 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function current()
     {
-        // TODO: Implement current() method.
+        $video = $this->vimeoQueryResult->getVideoIterator()->current();
+
+        if(is_array($video)) {
+            return new VimeoAssetProxy($video, $this->assetSource);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -65,7 +98,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function next()
     {
-        // TODO: Implement next() method.
+        $this->vimeoQueryResult->getVideoIterator()->next();
     }
 
     /**
@@ -76,7 +109,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function key()
     {
-        // TODO: Implement key() method.
+        return $this->vimeoQueryResult->getVideoIterator()->key();
     }
 
     /**
@@ -88,7 +121,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function valid()
     {
-        // TODO: Implement valid() method.
+        return $this->vimeoQueryResult->getVideoIterator()->valid();
     }
 
     /**
@@ -99,7 +132,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function rewind()
     {
-        // TODO: Implement rewind() method.
+        $this->vimeoQueryResult->getVideoIterator()->rewind();
     }
 
     /**
@@ -116,7 +149,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function offsetExists($offset)
     {
-        // TODO: Implement offsetExists() method.
+        return $this->vimeoQueryResult->getVideoIterator()->offsetExists($offset);
     }
 
     /**
@@ -130,7 +163,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function offsetGet($offset)
     {
-        // TODO: Implement offsetGet() method.
+        return $this->vimeoQueryResult->getVideoIterator()->offsetGet($offset);
     }
 
     /**
@@ -147,7 +180,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function offsetSet($offset, $value)
     {
-        // TODO: Implement offsetSet() method.
+        $this->vimeoQueryResult->getVideoIterator()->offsetSet($offset, $value);
     }
 
     /**
@@ -161,7 +194,7 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function offsetUnset($offset)
     {
-        // TODO: Implement offsetUnset() method.
+        $this->vimeoQueryResult->getVideoIterator()->offsetUnset($offset);
     }
 
     /**
@@ -175,6 +208,6 @@ class VimeoAssetProxyQueryResult implements AssetProxyQueryResultInterface
      */
     public function count()
     {
-        // TODO: Implement count() method.
+        return $this->vimeoQueryResult->getTotalResults();
     }
 }

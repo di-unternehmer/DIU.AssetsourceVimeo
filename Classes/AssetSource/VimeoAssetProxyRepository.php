@@ -6,9 +6,11 @@
  * Time: 15:27
  */
 
-namespace DIU\AssetSource\Vimeo\AssetSource;
+namespace DIU\Assetsource\Vimeo\AssetSource;
 
-
+use Neos\Flow\Annotations as Flow;
+use Doctrine\ORM\EntityManagerInterface;
+use Neos\Flow\ObjectManagement\ObjectManagerInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetNotFoundExceptionInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetProxy\AssetProxyInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetProxyQueryResultInterface;
@@ -21,6 +23,31 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
 {
 
     /**
+     * @var VimeoAssetSource
+     */
+    private $assetSource;
+    /**
+     * @Flow\Inject
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager;
+
+    /**
+     * @Flow\Inject
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
+     * @param VimeoAssetSource $assetSource
+     */
+    public function __construct(VimeoAssetSource $assetSource)
+    {
+        $this->assetSource = $assetSource;
+    }
+
+
+    /**
      * @param string $identifier
      * @return AssetProxyInterface
      * @throws AssetNotFoundExceptionInterface
@@ -28,7 +55,7 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
      */
     public function getAssetProxy(string $identifier): AssetProxyInterface
     {
-        // TODO: Implement getAssetProxy() method.
+        return new VimeoAssetProxy($this->assetSource->getVimeoClient()->findByIdentifier($identifier), $this->assetSource);
     }
 
     /**
@@ -36,7 +63,7 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
      */
     public function filterByType(AssetTypeFilter $assetType = null): void
     {
-        // TODO: Implement filterByType() method.
+        // @description to add more Repository for more types VimeoVideo, VimeoThumbnails, Vimeo...
     }
 
     /**
@@ -45,7 +72,8 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
      */
     public function findAll(): AssetProxyQueryResultInterface
     {
-        // TODO: Implement findAll() method.
+        $query = new VimeoAssetProxyQuery($this->assetSource);
+        return $query->execute();
     }
 
     /**
@@ -54,7 +82,9 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
      */
     public function findBySearchTerm(string $searchTerm): AssetProxyQueryResultInterface
     {
-        // TODO: Implement findBySearchTerm() method.
+        $query = new VimeoAssetProxyQuery($this->assetSource);
+        $query->setSearchTerm($searchTerm);
+        return $query->execute();
     }
 
     /**
@@ -63,7 +93,7 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
      */
     public function findByTag(Tag $tag): AssetProxyQueryResultInterface
     {
-        // TODO: Implement findByTag() method.
+        return $this->findBySearchTerm($tag);
     }
 
     /**
@@ -71,7 +101,7 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
      */
     public function findUntagged(): AssetProxyQueryResultInterface
     {
-        // TODO: Implement findUntagged() method.
+       throw new \Exception('is not implemented');
     }
 
     /**
@@ -81,6 +111,6 @@ class VimeoAssetProxyRepository implements AssetProxyRepositoryInterface
      */
     public function countAll(): int
     {
-        // TODO: Implement countAll() method.
+        return 99;
     }
 }
