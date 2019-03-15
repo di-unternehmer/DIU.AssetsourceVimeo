@@ -43,7 +43,7 @@ class VimeoAssetSource implements AssetSourceInterface
             $assetSourceOptions['clientSecret'],
             $assetSourceOptions['accessToken']
         );
- }
+    }
 
     /**
      * This factory method is used instead of a constructor in order to not dictate a __construct() signature in this

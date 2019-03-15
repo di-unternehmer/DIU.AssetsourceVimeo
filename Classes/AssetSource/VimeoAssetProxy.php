@@ -135,16 +135,12 @@ class VimeoAssetProxy implements AssetProxyInterface, HasRemoteOriginalInterface
 
     public function getPreviewUri(): ?UriInterface
     {
-        return new Uri(end($this->getProperty('pictures')['sizes'])['link_with_play_button']);
-
-        // @decripton  The same as original
-       // return new Uri ($this->mediaConfiguration['assetSources']['vimeo']['playerDomain'].$this->getProperty('uri'));
+       return new Uri(end($this->getProperty('pictures')['sizes'])['link_with_play_button']);
     }
 
     public function getImportStream()
     {
         return $this->getPreviewUri();
-       // return $this->mediaConfiguration['assetSources']['vimeo']['playerDomain'].str_replace('s','',$this->getProperty('uri'));
 
     }
 

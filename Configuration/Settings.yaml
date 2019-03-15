@@ -5,18 +5,17 @@ Neos:
         playerDomain: 'https://player.vimeo.com'
         assetSource: 'DIU\Assetsource\Vimeo\AssetSource\VimeoAssetSource'
         assetSourceOptions:
-
-          copyRightNoticeTemplate: '${"Vimeo.com / " + user.name}'
+          asyncThumbnails: true
 
           clientId : Vimeo-Client-Id
           clientSecret : Vimeo-Client-Secret
           accessToken : Vimeo-Access-Token
+
     asset:
       modelMappingStrategy:
         patterns:
           '[vimeo/video]':
             className: DIU\Assetsource\Vimeo\Domain\Model\Vimeo
-
 
   Neos:
     userInterface:
@@ -27,5 +26,5 @@ Neos:
             editor: Neos.Neos/Inspector/Editors/AssetEditor
             editorOptions:
               features:
-                upload: false
+                upload: true
                 mediaBrowser: true

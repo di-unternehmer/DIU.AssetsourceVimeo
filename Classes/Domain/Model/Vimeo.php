@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\ResourceManagement\PersistentResource;
 use Neos\Media\Domain\Model\ImageInterface;
+use Neos\Media\Domain\Model\Asset;
 use Neos\Media\Domain\Model\Video;
 
 /**
@@ -35,7 +36,8 @@ class Vimeo extends Video implements ImageInterface
         $this->width = -1;
         $this->height = -1;
     }
-        /**
+
+    /**
      * @var int
      * @ORM\Column(type="integer")
      */

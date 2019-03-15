@@ -11,7 +11,7 @@ namespace DIU\Assetsource\Vimeo\AssetSource;
 
 use Neos\Media\Domain\Model\AssetSource\AssetProxyQueryInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetProxyQueryResultInterface;
-use Neos\Media\Domain\Model\AssetSource\AssetSourceConnectionExceptionInterface;
+
 
 class VimeoAssetProxyQuery  implements AssetProxyQueryInterface
 {
