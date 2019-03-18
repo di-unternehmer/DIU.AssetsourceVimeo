@@ -1,15 +1,27 @@
 Neos:
   Media:
     assetSources:
-      vimeo:
+      vimeo-me:
         playerDomain: 'https://player.vimeo.com'
         assetSource: 'DIU\Assetsource\Vimeo\AssetSource\VimeoAssetSource'
         assetSourceOptions:
           asyncThumbnails: true
-
+          public : false
+          clientId: Vimeo-Client-Id
+          clientSecret: Vimeo-Client-Secret
+          accessToken: Vimeo-Access-Token
+          userId: Vimeo-User-Id
+      vimeo:
+        playerDomain: 'https://player.vimeo.com'
+        assetSource: 'DIU\Assetsource\Vimeo\AssetSource\VimeoAssetSource'
+        assetSourceOptions:
+          public : true
+          asyncThumbnails: true
           clientId : Vimeo-Client-Id
           clientSecret : Vimeo-Client-Secret
           accessToken : Vimeo-Access-Token
+          userId: Vimeo-User-Id
+
 
     asset:
       modelMappingStrategy:

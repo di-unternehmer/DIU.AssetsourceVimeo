@@ -1,4 +1,4 @@
-include: Components/Atom/**/**/*.fusion
-include: Components/Molecule/**/**/*.fusion
-include: Prototypes/**/*.fusion
+include: Components/Atom/Vimeo/Vimeo.fusion
+include: Content/Vimeo.fusion
+
 

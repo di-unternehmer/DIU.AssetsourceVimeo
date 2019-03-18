@@ -1,2 +1,2 @@
-DIUAssetsourceVimeo_VideoPropertyCache:
+'DIU_Assetsource_Vimeo_VideoPropertyCache':
   frontend: Neos\Cache\Frontend\VariableFrontend

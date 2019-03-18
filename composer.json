@@ -3,7 +3,7 @@
     "type": "neos-plugin",
     "name": "diu/assetsource-vimeo",
     "require": {
-        "neos/flow": "^4.0 || ^5.0 || dev-master",
+        "neos/neos": "^4.0 || ^5.0 || dev-master",
         "vimeo/vimeo-api": "^3.0"
     },
     "autoload": {
@@ -13,7 +13,7 @@
     },
     "extra": {
         "neos": {
-            "package-key": "DIU.AssetsourceVimeo"
+            "package-key": "DIU.Assetsource.Vimeo"
         }
     }
 }

@@ -30,6 +30,8 @@ class VimeoAssetSource implements AssetSourceInterface
      */
     protected $vimeoClient;
 
+    protected $lable;
+
     /**
      * VimeoAssetSource constructor.
      * @param string $assetSourceIdentifier
@@ -41,8 +43,15 @@ class VimeoAssetSource implements AssetSourceInterface
         $this->vimeoClient = new VimeoClient(
             $assetSourceOptions['clientId'],
             $assetSourceOptions['clientSecret'],
-            $assetSourceOptions['accessToken']
+            $assetSourceOptions['accessToken'],
+            is_int($assetSourceOptions['userId'])?$assetSourceOptions['userId']:0,
+            $assetSourceOptions['public']
         );
+        if(!isset($assetSourceOptions['lable'])) {
+            $this->lable = $assetSourceOptions['public'] ? 'Vimeo' : 'My Vimeo';
+        }else{
+            $this->lable = $assetSourceOptions['lable'];
+        }
     }
 
     /**
@@ -74,7 +83,8 @@ class VimeoAssetSource implements AssetSourceInterface
      */
     public function getLabel(): string
     {
-        return 'Vimeo';
+
+        return $this->lable;
     }
 
     /**

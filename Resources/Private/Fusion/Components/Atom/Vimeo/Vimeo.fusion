@@ -1,0 +1,41 @@
+prototype(DIU.Assetsource.Vimeo:Components.Atom.Vimeo) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Vimeo Video Container'
+
+        description = 'insert an iFrame with a vimeo videoplayer'
+
+        @propTypes {
+            classNames = ${PropTypes.string}
+            videoID = ${PropTypes.string.isRequired}
+            autoplay = ${PropTypes.boolean}
+            loop = ${PropTypes.boolean}
+            autopause = ${PropTypes.boolean}
+        }
+
+        props {
+            classNames = ''
+            videoID = '279617680'
+            autoplay = true
+            loop = false
+            autopause = false
+        }
+    }
+
+    classNames = ''
+    videoID = ''
+    autoplay = 1
+    loop = 0
+    autopause = 0
+
+    renderer = afx`
+    <div class="atom-vimeo-container">
+        <div class={'embed-responsive embed-responsive-16by9 ' + props.classNames}>
+            <iframe class="embed-responsive-item" src={'https://player.vimeo.com/video/' + props.videoID +
+                '?autoplay=' + (props.autoplay ? '1&muted=1' : '0')
+                + '&loop=' + (props.loop ? '1' : '0')
+                + '&autopause=' + (props.autopause ? '1' : '0')}  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+    </div>
+    `
+}

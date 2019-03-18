@@ -1,1 +1,1 @@
-# DIU.AssetsourceVimeo
+# DIU.Assetsource.Vimeo

@@ -1,10 +1,13 @@
 -
-  requestFilter: 'isPackage("Neos.Media.Browser") && isController("Asset") && isAction("show") && isFormat("html")'
+  requestFilter: 'parentRequest.isPackage("Neos.Neos") && isFormat("html") && isPackage("Neos.Media.Browser") && isController("Asset") && isAction("show")'
   options:
-    #templatePathAndFilename: 'resource://DIU.Assetsource.Vimeo/Private/Templates/Asset/Show.html'
-    templateRootPaths:
-      'DIU.Assetsource.Vimeo': 'resource://DIU.Assetsource.Vimeo/Private/Templates'
-      'DIU.AssetsourceVimeo': 'resource://DIU.Assetsource.Vimeo/Private/Templates'
-    partialRootPaths:
-      'Neos.Neos': 'resource://Neos.Neos/Private/Partials'
-      'Neos.Media.Browser': 'resource://Neos.Media.Browser/Private/Partials'
+    templatePathAndFilename: 'resource://DIU.Assetsource.Vimeo/Private/Templates/Asset/Show.html'
+
+    layoutRootPaths:
+      'Neos.Media.Browser': 'resource://Neos.Media.Browser/Private/Layouts/Module'
+
+
+ #   templateRootPaths:
+ #     'DIU.Assetsource.Vimeo': 'resource://DIU.Assetsource.Vimeo/Private/Templates'
+ #     'Neos.Media.Browser': 'resource://DIU.Assetsource.Vimeo/Private/Templates'
+#

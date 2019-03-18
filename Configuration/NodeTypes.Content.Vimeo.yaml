@@ -1,48 +1,48 @@
 'DIU.Assetsource.Vimeo:Content.Vimeo':
   superTypes:
     'Neos.Neos:Content': true
-    ui:
-      label: i18n
-      position: 100
-      icon: 'icon-vimeo'
-      group: 'general'
-      inspector:
-        groups:
-          video:
-            label: i18n
-            icon: 'icon-cog'
-    properties:
-      videoID:
-        type: DIU\Assetsource\Vimeo\Domain\Model\Vimeo
-        ui:
+  ui:
+    label: i18n
+    position: 100
+    icon: 'icon-vimeo'
+    group: 'general'
+    inspector:
+      groups:
+        video:
           label: i18n
-          reloadIfChanged: true
-          inspector:
-            group: 'video'
-            editorOptions:
-              accept: 'vimeo/video'
-              features:
-                upload: true
-                mediaBrowser: true
-      autoplay:
-        type: boolean
-        ui:
-          label: i18n
-          reloadIfChanged: false
-          inspector:
-            group: 'video'
-      autopause:
-        type: boolean
-        defaultValue: true
-        ui:
-          label: i18n
-          reloadIfChanged: true
-          inspector:
-            group: 'video'
-      loop:
-        type: boolean
-        ui:
-          label: i18n
-          reloadIfChanged: false
-          inspector:
-            group: 'video'
+          icon: 'icon-cog'
+  properties:
+    videoID:
+      type: DIU\Assetsource\Vimeo\Domain\Model\Vimeo
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: 'video'
+          editorOptions:
+            accept: 'vimeo/video'
+            features:
+              upload: true
+              mediaBrowser: true
+    autoplay:
+      type: boolean
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: 'video'
+    autopause:
+      type: boolean
+      defaultValue: true
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: 'video'
+    loop:
+      type: boolean
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: 'video'

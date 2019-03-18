@@ -1,0 +1,9 @@
+prototype(DIU.Assetsource.Vimeo:Content.Vimeo) < prototype(Neos.Neos:ContentComponent) {
+
+    renderer = DIU.Assetsource.Vimeo:Components.Atom.Vimeo {
+        videoID = ${q(node).property('videoID').videoId}
+        autoplay = ${q(node).property('autoplay')}
+        loop = ${q(node).property('loop')}
+        autopause = ${q(node).property('autopause')}
+    }
+}

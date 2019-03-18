@@ -6,7 +6,7 @@ DIU\Assetsource\Vimeo\Api\VimeoClient:
         factoryMethodName: getCache
         arguments:
           1:
-            value: DIUAssetsourceVimeo_VideoPropertyCache
+            value: DIU_Assetsource_Vimeo_VideoPropertyCache
 
 Neos\Media\Domain\Strategy\AssetModelMappingStrategyInterface:
   className: DIU\Assetsource\Vimeo\Domain\Strategy\ConfigurationAssetModelMappingStrategy

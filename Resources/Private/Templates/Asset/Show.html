@@ -17,7 +17,6 @@
                     <textarea id="copyrightnotice" rows="2" readonly="readonly">{assetProxy.iptcProperties.CopyrightNotice}</textarea>
                 </fieldset>
                 <fieldset>
-                    <h1>Hallo</h1>
                     <legend>{neos:backend.translate(id: 'metadata', package: 'Neos.Media.Browser')}</legend>
                     <table class="neos-info-table">
                         <tbody>
@@ -64,8 +63,14 @@
                 </fieldset>
             </div>
             <div class="neos-span6 neos-image-example">
-
-                <f:render section="ContentImage" arguments="{_all}" />
+                <f:if condition="{assetProxy.lable} === 'Neos'">
+                    <f:then>
+                        <f:render section="ContentImage" arguments="{_all}" />
+                    </f:then>
+                    <f:else>
+                        <f:render section="ContentVimeo" arguments="{_all}" />
+                    </f:else>
+                </f:if>
             </div>
         </div>
         <div class="neos-footer">
@@ -79,6 +84,29 @@
         <a href="{assetProxy.importStream}" target="_blank">
             <img src="{assetProxy.previewUri}" class="img-polaroid" alt="{assetProxy.label}"/>
         </a>
+    </div>
+</f:section>
+
+<f:section name="ContentVimeo">
+    <style>
+        .neos-preview-vimeo{
+            overflow:hidden;
+            padding-bottom:56.25% !important;
+            position:relative;
+            height:0;
+        }
+        .neos-preview-vimeo iframe{
+            left:0;
+            top:0;
+            height:100%;
+            width:100%;
+            position:absolute;
+        }
+    </style>
+    <label>{neos:backend.translate(id: 'preview', package: 'Neos.Media.Browser')}</label>
+    <div class="neos-preview-vimeo">
+        <iframe class="embed-responsive-item" src="{assetProxy.playerUrl}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen width="100%" ></iframe>
+
     </div>
 </f:section>
 

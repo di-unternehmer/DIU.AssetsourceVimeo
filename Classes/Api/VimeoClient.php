@@ -29,13 +29,23 @@ final class VimeoClient
     protected $client;
 
     /**
+     * @var int
+     */
+    protected $userId;
+    /**
+     * @var
+     */
+    protected $public;
+    /**
      * @param string $clientId
      * @param string $clientSecret
      * @param string $accessToken
      */
-    public function __construct(string $clientId, string $clientSecret, string $accessToken)
+    public function __construct(string $clientId, string $clientSecret, string $accessToken, int $userId = 0,$public = false)
     {
         $this->client = new Vimeo($clientId, $clientSecret, $accessToken);
+        $this->userId = $userId;
+        $this->public = $public;
     }
 
     /**
@@ -52,7 +62,45 @@ final class VimeoClient
         return $this->videoPropertyCache->get($identifier);
     }
 
+    /**
+     * @param int $page
+     * @param int $per_page
+     * @param string $query
+     * @param string $sort
+     * @param string $direction
+     * @param string $filter
 
+     */
+    public function searchWithUser(int $page = 1, int $per_page = 10, string $query = 'neos', string $filter = '', string $sort = 'relevant', string $direction = 'asc')
+    {
+        $parameter =  [
+
+            'page' => $page,
+            'per_page' => $per_page
+        ];
+        if(!empty($query)){
+            $parameter['query'] = $query;
+        }
+
+        try {
+            $path = '/me/videos';
+            if($this->userId !== 0 ){
+                $path = '/users/'.$this->userId.'/videos';
+            }
+
+
+            $response = $this->client->request($path,$parameter);
+
+
+            if ((int)$response['status'] === 200){
+                return $this->processResult($response['body']);
+            }
+
+        }catch (VimeoRequestException $e){
+            // @todo error logging
+        }
+        return new VimeoQueryResult([], 0, 1);
+    }
 
 
     /**
@@ -66,8 +114,16 @@ final class VimeoClient
      */
     public function search(int $page = 1, int $per_page = 10, string $query = 'neos', string $filter = '', string $sort = 'relevant', string $direction = 'asc')
     {
+
+        if(!$this->public ){
+            return $this->searchWithUser( $page, $per_page, $query, $filter, $sort , $direction);
+        }
         if(empty($query)){
-            return new VimeoQueryResult([], 0, 1);
+            $query = 'Hafencity';
+        }
+
+        if(is_numeric($query) ){
+            return $this->searchByVideoId($query);
         }
 
         try {
@@ -78,10 +134,6 @@ final class VimeoClient
                    'page' => $page,
                    'per_page' => $per_page ]);
 
-        //         //   'sort' => $sort,
-        //          //  'direction' => $direction,
-        //          //  'filter' => $filter,
-
          if ((int)$response['status'] === 200){
              return $this->processResult($response['body']);
      }
@@ -90,8 +142,30 @@ final class VimeoClient
             // @todo error logging
         }
         return new VimeoQueryResult([], 0, 1);
-
     }
+
+    public function searchByVideoId($videoId){
+        try {
+            //   $response = $this->client->request('/tutorial', array(), 'GET');
+            $response = $this->client->request(
+                '/videos/'.$videoId
+              );
+            $videos = [];
+            if ((int)$response['status'] === 200){
+                $video = $response['body'];
+
+                $this->videoPropertyCache->set($video['resource_key'], $video);
+                $videos[]= $video;
+                return new VimeoQueryResult($videos, 1, 1);
+            }
+
+        }catch (VimeoRequestException $e){
+            // @todo error logging
+
+        }
+        return new VimeoQueryResult([], 0, 1);
+    }
+
 
     /**
      * @param array $resultArray
