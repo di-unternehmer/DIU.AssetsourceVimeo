@@ -40,3 +40,7 @@ Neos:
               features:
                 upload: true
                 mediaBrowser: true
+
+      translation:
+        autoInclude:
+          'DIU.Assetsource.Vimeo': ['*','NodeTypes/*']

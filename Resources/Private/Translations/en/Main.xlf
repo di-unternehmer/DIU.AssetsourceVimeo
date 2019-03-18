@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file original="" product-name="DIU.Assetsource.Vimeo" source-language="en" datatype="plaintext">
+    <file original="" product-name="" source-language="en" datatype="plaintext">
         <body>
             <trans-unit id="ui.label">
                 <source>Vimeo Player</source>
             </trans-unit>
             <trans-unit id="groups.video">
-                <source>Video Settings2</source>
+                <source>Video Settings</source>
             </trans-unit>
-            <trans-unit id="properties.videoID">
+            <trans-unit id="DIU.Assetsource.Vimeo:NodeTypes.Content.Vimeo:properties.properties.videoID">
                 <source>Video ID</source>
             </trans-unit>
-            <trans-unit id="properties.autoplay">
+            <trans-unit id="DIU.Assetsource.Vimeo:NodeTypes.Content.Vimeo:properties.properties.autoplay">
                 <source>Start playing on load (muted)</source>
             </trans-unit>
-            <trans-unit id="properties.autopause">
+            <trans-unit id="DIU.Assetsource.Vimeo:NodeTypes.Content.Vimeo:properties.properties.autopause">
                 <source>Pause Video if other starts</source>
             </trans-unit>
-            <trans-unit id="properties.loop">
+            <trans-unit id="DIU.Assetsource.Vimeo:NodeTypes.Content.Vimeo:properties.properties.loop">
                 <source>Repeat</source>
             </trans-unit>
         </body>
