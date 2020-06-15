@@ -11,7 +11,7 @@ namespace DIU\Assetsource\Vimeo\AssetSource;
 use Neos\Flow\Annotations as Flow;
 use Neos\ContentRepository\Utility;
 use Neos\Eel\EelEvaluatorInterface;
-use Neos\Flow\Http\Uri;
+use GuzzleHttp\Psr7\Uri;
 use Neos\Media\Domain\Model\AssetSource\AssetProxy\AssetProxyInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetProxy\HasRemoteOriginalInterface;
 use Neos\Media\Domain\Model\AssetSource\AssetProxy\SupportsIptcMetadataInterface;
